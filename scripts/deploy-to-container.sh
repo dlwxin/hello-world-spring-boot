@@ -1,7 +1,7 @@
 #!/bin/bash
 
 SCRIPT_NAME=$0
-SCRIPT_PATH==$( cd $(dirname $0) && pwd)
+SCRIPT_PATH=$( cd $(dirname $0) && pwd)
 CURR_DIR=`pwd`
 GIT_REPO_PATH="$( cd $SCRIPT_PATH && cd .. && pwd )"
 DOCKER_FILE=Dockerfile
