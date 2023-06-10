@@ -23,7 +23,7 @@ public class ConfigService {
             File file = Paths.get(resource.getURI()).toFile();
             content = new String(Files.readAllBytes(file.toPath()));
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            content = "ERROR: " + e.getMessage();
         }
         return content;
     }

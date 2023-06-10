@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,8 +27,9 @@ public class ConfigController {
     private String currentEnv;
 
     @GetMapping("/config")
-    public Map<String,String> config(){
+    public Map<String, String> config() {
         String fileContent = configService.loadFile(appCertPath);
-        return Map.of("appCertPath", appCertPath, "appSecretKey", appSecretKey, "currentEnv", currentEnv, "fileContent",fileContent);
+        LocalDateTime eventtime = LocalDateTime.now();
+        return Map.of("appCertPath", appCertPath, "appSecretKey", appSecretKey, "currentEnv", currentEnv, "fileContent", fileContent, "eventtime", eventtime.toString());
     }
 }
