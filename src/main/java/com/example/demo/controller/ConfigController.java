@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import com.example.demo.service.ConfigService;
+import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,6 +11,9 @@ import java.util.Map;
 
 @RestController
 public class ConfigController {
+
+    @Resource
+    ConfigService configService;
 
     @Value("${demo.app.cert.path}")
     private String appCertPath;
@@ -21,6 +26,7 @@ public class ConfigController {
 
     @GetMapping("/config")
     public Map<String,String> config(){
-        return Map.of("appCertPath", appCertPath, "appSecretKey", appSecretKey, "currentEnv", currentEnv);
+        String fileContent = configService.loadFile(appCertPath);
+        return Map.of("appCertPath", appCertPath, "appSecretKey", appSecretKey, "currentEnv", currentEnv, "fileContent",fileContent);
     }
 }
