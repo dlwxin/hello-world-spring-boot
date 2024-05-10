@@ -22,3 +22,11 @@ docker build -t hello-world-spring-boot .
 ```shell
 docker run --name hello-world-spring-boot -p 8080:8080 -d hello-world-spring-boot
 ```
+
+## Run in the kubernetes
+
+```shell
+kubectl apply -f deploy/k8s/deployment.yaml
+POD_NAME=$(kubectl get po | grep deployment-simple-spring-boot | awk '{print $1}')
+kubectl exec -it $POD_NAME -- sh
+```
