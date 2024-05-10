@@ -19,3 +19,25 @@ spec:
         - name: demo-app
           image: hello-world-spring-boot
           imagePullPolicy: Never
+          readinessProbe:
+            # Readiness probe is used to check if this app is ready to serve traffic.
+            httpGet:
+              port: 8080
+              path: /actuator/health/readiness
+            initialDelaySeconds: 30
+            periodSeconds: 30
+            failureThreshold: 3
+          livenessProbe:
+            # Liveness probe is used to check if this app is responding to requests
+            # (after it is marked as "ready").
+            httpGet:
+              port: 8080
+              path: /actuator/health/liveness
+            initialDelaySeconds: 30
+            periodSeconds: 30
+            failureThreshold: 3
+          securityContext:
+            readOnlyRootFilesystem: false
+      securityContext:
+        runAsUser: 1000
+        runAsNonRoot: true
