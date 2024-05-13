@@ -1,6 +1,6 @@
 FROM amazoncorretto:17-al2023
 WORKDIR /app
-VOLUME /tmp
+# VOLUME /tmp
 RUN yum install -y shadow-utils \
     && groupadd -r appuser \
     && useradd -r -u 1000 -g appuser appuser \

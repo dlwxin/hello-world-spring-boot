@@ -38,6 +38,12 @@ spec:
             failureThreshold: 3
           securityContext:
             readOnlyRootFilesystem: true
+          volumeMounts:
+            - mountPath: /tmp
+              name: tmp-path
+      volumes:
+        - name: tmp-path
+          emptyDir: {}
       securityContext:
         runAsUser: 1000
         runAsNonRoot: true
