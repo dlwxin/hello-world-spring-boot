@@ -37,7 +37,7 @@ spec:
             periodSeconds: 30
             failureThreshold: 3
           securityContext:
-            readOnlyRootFilesystem: false
+            readOnlyRootFilesystem: true
       securityContext:
         runAsUser: 1000
         runAsNonRoot: true
