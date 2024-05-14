@@ -12,7 +12,7 @@ curl http://localhost:8080/api/
 curl http://localhost:8080/config
 ```
 
-## Run in the container
+## Run in container
 
 ```shell
 mvn clean package
@@ -23,7 +23,7 @@ docker build -t hello-world-spring-boot .
 docker run --name hello-world-spring-boot -p 8080:8080 -d hello-world-spring-boot
 ```
 
-## Run in the kubernetes
+## Run in kubernetes
 
 ```shell
 kubectl apply -f deploy/k8s/deployment.yaml

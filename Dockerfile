@@ -6,6 +6,7 @@ RUN yum install -y shadow-utils \
     && useradd -r -u 1000 -g appuser appuser \
     && chown -R appuser:appuser /app \
     && chmod -R 755 /app \
+    && mkdir -p /app/tmp \
     && yum remove -y shadow-utils \
     && rm -rf /var/cache/yum
 USER appuser

@@ -19,6 +19,9 @@ spec:
         - name: demo-app
           image: hello-world-spring-boot
           imagePullPolicy: Never
+          env:
+            - name: JAVA_OPTS
+              value: '-Djava.io.tmpdir=/app/tmp'
           readinessProbe:
             # Readiness probe is used to check if this app is ready to serve traffic.
             httpGet:
@@ -39,11 +42,14 @@ spec:
           securityContext:
             readOnlyRootFilesystem: true
           volumeMounts:
-            - mountPath: /tmp
+            - mountPath: /app/tmp
               name: tmp-path
       volumes:
         - name: tmp-path
-          emptyDir: {}
+          # emptyDir: {}
+          emptyDir:
+            # medium: Memory
+            sizeLimit: 200Mi
       securityContext:
         runAsUser: 1000
         runAsNonRoot: true
