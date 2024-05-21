@@ -26,10 +26,21 @@ public class ConfigController {
     @Value("${demo.current.env}")
     private String currentEnv;
 
+    @Value("${demo.app.platform}")
+    private String platform;
+
+    @Value("${demo.app.http.method}")
+    private String httpMethod;
+
+    @Value("${demo.app.target.number}")
+    private String targetNumber;
+
     @GetMapping("/config")
     public Map<String, String> config() {
         String fileContent = configService.loadFile(appCertPath);
         LocalDateTime eventtime = LocalDateTime.now();
-        return Map.of("appCertPath", appCertPath, "appSecretKey", appSecretKey, "currentEnv", currentEnv, "fileContent", fileContent, "eventtime", eventtime.toString());
+        return Map.of("appCertPath", appCertPath, "appSecretKey", appSecretKey, "currentEnv", currentEnv,
+                "fileContent", fileContent, "eventtime", eventtime.toString(), "platform", platform,
+                "httpMethod", httpMethod, "targetNumber", targetNumber);
     }
 }
