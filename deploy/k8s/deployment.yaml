@@ -15,6 +15,19 @@ spec:
       labels:
         app: demo-app
     spec:
+      initContainers:
+        - name: volume-permissions
+          image: busybox
+          command:
+            - sh
+            - -c
+            - |
+              # 通过 initContainer 修改用户和组权限
+              chown -R 1001:1001 /assets
+              chmod -R 775 /assets
+          volumeMounts:
+            - name: assets-volume
+              mountPath: /assets
       containers:
         - name: demo-app
           image: hello-world-spring-boot
@@ -41,23 +54,23 @@ spec:
             failureThreshold: 3
           securityContext:
             readOnlyRootFilesystem: false
+            runAsUser: 1001
+            runAsNonRoot: true
           volumeMounts:
             - mountPath: /app/tmp
-              name: tmp-path
+              name: tmp-volume
             - mountPath: /assets
-              name: asset-path
+              name: assets-volume
       volumes:
-        - name: tmp-path
+        - name: tmp-volume
           # emptyDir: {}
           emptyDir:
             # medium: Memory
             sizeLimit: 200Mi
-        - name: asset-path
+        - name: assets-volume
           # emptyDir: {}
           emptyDir:
             # medium: Memory
             sizeLimit: 200Mi
       securityContext:
-        runAsUser: 1001
-        runAsNonRoot: true
         fsGroup: 1001
