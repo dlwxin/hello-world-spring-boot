@@ -40,16 +40,24 @@ spec:
             periodSeconds: 30
             failureThreshold: 3
           securityContext:
-            readOnlyRootFilesystem: true
+            readOnlyRootFilesystem: false
           volumeMounts:
             - mountPath: /app/tmp
               name: tmp-path
+            - mountPath: /assets
+              name: asset-path
       volumes:
         - name: tmp-path
           # emptyDir: {}
           emptyDir:
             # medium: Memory
             sizeLimit: 200Mi
+        - name: asset-path
+          # emptyDir: {}
+          emptyDir:
+            # medium: Memory
+            sizeLimit: 200Mi
       securityContext:
-        runAsUser: 1000
+        runAsUser: 1001
         runAsNonRoot: true
+        fsGroup: 1001

@@ -9,6 +9,8 @@ curl http://localhost:8080/api/hash
 
 curl http://localhost:8080/api/
 
+curl http://localhost:8080/api/path?path=/assets/test
+
 curl http://localhost:8080/config
 ```
 
