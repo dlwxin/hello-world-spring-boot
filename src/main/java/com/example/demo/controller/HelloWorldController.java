@@ -3,8 +3,10 @@ package com.example.demo.controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.File;
 import java.util.UUID;
 
 /**
@@ -26,5 +28,13 @@ public class HelloWorldController {
     public String hash(){
         return UUID.randomUUID().toString();
     }
-    
+
+    @GetMapping("/path")
+    public boolean path(@RequestParam String path){
+        File directory = new File(path);
+        if (!directory.exists() && !directory.mkdirs()) {
+           return false;
+        }
+        return true;
+    }
 }
